@@ -1,0 +1,16 @@
+<h1>Task List</h1>
+
+<%= turbo_frame_tag "task_form" do %>
+  <%= form_with(model: @task, url: tasks_path, method: :post, data: { turbo_frame: "task_form", controller: "form-reset" }) do |form| %>
+    <%= form.text_field :name, placeholder: "New Task" %>
+    <%= form.submit "Add Task" %>
+  <% end %>
+<% end %>
+
+<h2>Tasks</h2>
+
+<div id="tasks">
+  <%= turbo_frame_tag "tasks" do %>
+    <%= render @tasks %>
+  <% end %>
+</div>
