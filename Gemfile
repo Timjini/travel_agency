@@ -53,7 +53,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'byebug', '~> 11.1', '>= 11.1.3'
+  gem "byebug", "~> 11.1", ">= 11.1.3"
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
