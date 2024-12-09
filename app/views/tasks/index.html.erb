@@ -1,16 +1,21 @@
-<h1>Task List</h1>
+<section class="flex flex-col gap-4">
+    <div>
+        <h1>Task List</h1>
 
-<%= turbo_frame_tag "task_form" do %>
-  <%= form_with(model: @task, url: tasks_path, method: :post, data: { turbo_frame: "task_form", controller: "form-reset" }) do |form| %>
-    <%= form.text_field :name, placeholder: "New Task" %>
-    <%= form.submit "Add Task" %>
-  <% end %>
-<% end %>
+        <%= turbo_frame_tag "task_form" do %>
+        <%= form_with(model: @task, url: tasks_path, method: :post, data: { turbo_frame: "task_form", controller: "form-reset" }) do |form| %>
+        <%= form.text_field :name, placeholder: "New Task" %>
+        <%= form.text_field :translations_pl_name, placeholder: "Nazwa zadania" %>
+        <%= form.submit "Add Task" , class: "bg-blue-500" %>
+        <% end %>
+        <% end %>
+    </div>
 
-<h2>Tasks</h2>
-
-<div id="tasks">
-  <%= turbo_frame_tag "tasks" do %>
-    <%= render @tasks %>
-  <% end %>
-</div>
+    <div>
+        <div id="tasks">
+            <%= turbo_frame_tag "tasks" do %>
+            <%= render @tasks %>
+            <% end %>
+        </div>
+    </div>
+</section>

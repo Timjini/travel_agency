@@ -21,6 +21,11 @@ gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
+# # sidekiq
+# gem 'sidekiq'
+# # sidekiq cron
+# gem 'sidekiq-cron'
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
@@ -48,6 +53,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'byebug', '~> 11.1', '>= 11.1.3'
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 

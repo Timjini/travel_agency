@@ -11,7 +11,10 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+
     if @task.save
+      @task.set_translation(:name, params[:task][:translations_pl_name], "pl")
+      @task.set_translation(:name, params[:task][:name], "en")
       render turbo_stream: turbo_stream.append("tasks", partial: "task", locals: { task: @task })
     else
       render :index

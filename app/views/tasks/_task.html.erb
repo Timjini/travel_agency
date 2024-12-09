@@ -1,4 +1,5 @@
 <div id="task_<%= task.id %>">
-  <p><%= task.name %></p>
-  <%= button_to "Delete", task_path(task), method: :delete, data: { turbo_confirm: "Are you sure?" } %>
+
+<p class=""><%= @task.translation_for('pl')  %></p>
+<%= button_to "Delete", task_path(task), method: :delete, data: { turbo_confirm: "Are you sure?" } %>  
 </div>
