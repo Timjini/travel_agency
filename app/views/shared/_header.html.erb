@@ -1,0 +1,14 @@
+<div class="header flex flex-row justify-between items-center p-4 gap-10">
+  <div class="header-logo">
+  <%= link_to root_path do %>
+  <%= image_tag "maroko-ekspert.jpg", alt: "Logo", class: 'h-12 w-12 ' %>
+  <% end %>
+  </div>
+  <div class="header-links">
+  <%= link_to "Home", root_path %>
+  <%= link_to "Tasks", tasks_path %>
+  </div>
+<div class="header-locale">
+  <%= locale_links %>
+</div>
+</div>

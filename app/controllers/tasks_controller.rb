@@ -7,19 +7,25 @@ class TasksController < ApplicationController
   end
 
   def show
+    @task = Task.find(params[:id])
   end
 
   def create
-    @task = Task.new(task_params)
+  @task = Task.new(task_params)
 
     if @task.save
+      # Set translations
       @task.set_translation(:name, params[:task][:translations_pl_name], "pl")
       @task.set_translation(:name, params[:task][:name], "en")
-      render turbo_stream: turbo_stream.append("tasks", partial: "task", locals: { task: @task })
+       respond_to do |format|
+        format.html { redirect_to task_path(@task), notice: "Date was successfully created." }
+        format.turbo_stream { flash.now[:notice] = "Date was successfully created." }
+      end
     else
       render :index
     end
-  end
+end
+
 
   def edit
   end

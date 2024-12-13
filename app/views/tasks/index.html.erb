@@ -6,16 +6,15 @@
         <%= form_with(model: @task, url: tasks_path, method: :post, data: { turbo_frame: "task_form", controller: "form-reset" }) do |form| %>
         <%= form.text_field :name, placeholder: "New Task" %>
         <%= form.text_field :translations_pl_name, placeholder: "Nazwa zadania" %>
-        <%= form.submit "Add Task" , class: "bg-blue-500" %>
+        <%= form.submit "Add Task" , class: "mainBtn" %>
         <% end %>
         <% end %>
     </div>
 
     <div>
-        <div id="tasks">
-            <%= turbo_frame_tag "tasks" do %>
-            <%= render @tasks %>
-            <% end %>
-        </div>
+    <h1>Task List</h1>
+        <% @tasks.each do  |task| %>
+        <p> <%= task.translate(:name) %> </p>
+        <% end %>
     </div>
 </section>
