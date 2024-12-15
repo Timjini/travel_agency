@@ -1,4 +1,5 @@
 <div id="task_<%= task.id %>">
-<p class=""><%= @task.inspect%></p>
+<p class=""><%= task.translate(:name)%></p>
+<%= link_to "Edit", edit_task_path(task, locale: I18n.locale), data: { turbo_frame: "task_form_#{task.id}" }, class: "btn" %>
 <%= button_to "Delete", task_path(task, locale: I18n.locale), method: :delete, data: { turbo_confirm: "Are you sure?" } %>  
 </div>

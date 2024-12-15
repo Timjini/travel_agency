@@ -1,0 +1,9 @@
+ <%= turbo_frame_tag "task_form" do %>
+
+ <%= form_with(model: @task, url: tasks_path, method: :post, data: { turbo_frame: "task_form", controller: "form-reset" }) do |form| %>
+    <%= form.text_field :name, placeholder: "New Task" %>
+    <%= form.text_field :translations_pl_name, placeholder: "Nazwa zadania" %>
+    <%= form.submit "Add Task" , class: "mainBtn" %>
+ <% end %>
+
+ <% end %>

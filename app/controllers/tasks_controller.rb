@@ -7,30 +7,60 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = Task.find(params[:id])
+    @post = Post.find(params[:id])
+    render turbo_stream: turbo_stream.replace("task_#{@task.id}", partial: "tasks/task", locals: { post: @task })
   end
 
   def create
-  @task = Task.new(task_params)
+    @task = Task.new(task_params)
 
     if @task.save
-      # Set translations
       @task.set_translation(:name, params[:task][:translations_pl_name], "pl")
       @task.set_translation(:name, params[:task][:name], "en")
-       respond_to do |format|
-        format.html { redirect_to task_path(@task), notice: "Date was successfully created." }
-        format.turbo_stream { flash.now[:notice] = "Date was successfully created." }
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: [
+            # use flash if needed
+            # turbo_stream.replace("flash_messages", partial: "shared/flash_messages", locals: { flash_message: flash[:notice] }),
+            turbo_stream.prepend("tasks", partial: "tasks/task", locals: { task: @task }),
+            turbo_stream.replace("task_form", partial: "tasks/form", locals: { task: Task.new })
+          ]
+        end
+        format.html { redirect_to tasks_url, notice: "Task created." }
       end
     else
-      render :index
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace("task_form", partial: "tasks/form", locals: { task: @task })
+        end
+        format.html { render :new, status: :unprocessable_entity }
+      end
     end
-end
-
+  end
 
   def edit
+    @task = Task.find(params[:id])
+    render turbo_stream: turbo_stream.replace("task_#{@task.id}", partial: "tasks/edit_form", locals: { task: @task })
   end
 
   def update
+    @task = Task.find(params[:id])
+
+    if @task.update(task_params)
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace("task_form_#{@task.id}", partial: "tasks/task", locals: { task: @task })
+        end
+        format.html { redirect_to tasks_url, notice: "Task updated." }
+      end
+    else
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace("task_form_#{@task.id}", partial: "tasks/edit_form", locals: { task: @task })
+        end
+        format.html { render :edit, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy

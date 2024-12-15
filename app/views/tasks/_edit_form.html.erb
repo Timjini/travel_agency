@@ -1,0 +1,17 @@
+<%= turbo_frame_tag "task_form_#{task.id}" do %>
+<p> for edit </p>
+  <%= form_with(model: task, local: false) do |form| %>
+
+    <div class="field">
+      <%= form.text_field :name, placeholder: "Edit Task" %>
+    </div>
+
+    <div class="field">
+      <%= form.text_field :translations_pl_name, placeholder: "Nazwa zadania" %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  <% end %>
+<% end %>
